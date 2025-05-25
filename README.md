@@ -358,7 +358,7 @@ environment:
 ### Inicio Rápido
 ```bash
 # 1. Clonar repositorio
-git clone <URL-REPOSITORIO>
+git clone https://github.com/TheTGM/u-docker-task
 cd sistema-transacciones-seguras
 
 # 2. Construir y ejecutar
