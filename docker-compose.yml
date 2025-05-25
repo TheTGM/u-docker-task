@@ -1,0 +1,47 @@
+# Sistema de Transacciones Seguras
+# Configuración Docker Compose para desarrollo y producción
+
+services:
+  # Servidor de Transacciones
+  servidor:
+    build:
+      context: ./servidor
+      dockerfile: Dockerfile
+    container_name: servidor-transacciones
+    hostname: servidor
+    ports:
+      - "8080:8080"  # Puerto para conexiones externas
+    networks:
+      - transacciones-net
+    environment:
+      - SERVER_PORT=8080
+      - LOG_LEVEL=INFO
+      - SECRET_KEY=mi_clave_secreta_muy_segura_2025
+      - AES_KEY=mi_clave_aes_256_bits_muy_segura
+    restart: unless-stopped
+
+  # Cliente de Transacciones
+  cliente:
+    build:
+      context: ./cliente
+      dockerfile: Dockerfile
+    container_name: cliente-transacciones
+    hostname: cliente
+    networks:
+      - transacciones-net
+    depends_on:
+      - servidor
+    environment:
+      - SERVER_HOST=servidor
+      - SERVER_PORT=8080
+      - SECRET_KEY=mi_clave_secreta_muy_segura_2025
+      - AES_KEY=mi_clave_aes_256_bits_muy_segura
+    stdin_open: true
+    tty: true
+    restart: "no"  # No reiniciar automáticamente el cliente
+
+# Configuración de red simplificada
+networks:
+  transacciones-net:
+    driver: bridge
+    name: transacciones-network
