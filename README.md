@@ -51,7 +51,7 @@ git version 2.34.1
 
 ### Paso 1: Clonar el Repositorio
 ```bash
-git clone <URL-DEL-REPOSITORIO>
+git clone https://github.com/TheTGM/u-docker-task
 cd sistema-transacciones-seguras
 ```
 
